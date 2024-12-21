@@ -1,0 +1,8 @@
+{
+	"xp_requirement": 15,
+	"max_duration": 100,
+	"block_stacks": 3,
+	"parry_stacks": 6,
+	"dodge_stacks": 8,
+	"max_dt_stacks": 100
+}
