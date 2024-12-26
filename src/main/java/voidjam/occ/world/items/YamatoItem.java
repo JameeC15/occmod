@@ -36,6 +36,8 @@ public class YamatoItem extends WeaponItem {
 	private double attackSpeed;
 	
 	public static final ParticleEmitterInfo SLASHES = new ParticleEmitterInfo(new ResourceLocation(OCCMod.MODID,"sword")).scale(0.2F, 0.2F, 0.2F);
+	
+	public static final ParticleEmitterInfo JCE = new ParticleEmitterInfo(new ResourceLocation(OCCMod.MODID,"jce"));
 
 	public YamatoItem(Item.Properties build) {
 		super(EpicFightItemTier.UCHIGATANA, 0, -1.8F, build.defaultDurability(1666));

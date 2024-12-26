@@ -58,7 +58,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class DarkSlayer extends WeaponInnateSkill {
    private static final UUID EVENT_UUID = UUID.fromString("63c38d4f-cc97-4339-bedf-d9bba36ba29f");
 
-   private final StaticAnimationProvider[] setanimations = new StaticAnimationProvider[8];
+   private final StaticAnimationProvider[] setanimations = new StaticAnimationProvider[9];
    private final Map<StaticAnimation, AttackAnimation> comboAnimation = Maps.newHashMap();
 
    public DarkSlayer(WeaponInnateSkill.Builder builder) {
@@ -86,6 +86,9 @@ public class DarkSlayer extends WeaponInnateSkill {
       };
       this.setanimations[7] = () -> {
          return OCCAnimations.JUDGEMENT_CUT_EXTEND_TARGETED;
+      };
+      this.setanimations[8] = () -> {
+         return OCCAnimations.JUDGEMENT_CUT_END;
       };
    }
 

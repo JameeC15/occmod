@@ -43,6 +43,7 @@ import yesman.epicfight.api.animation.property.AnimationProperty.ActionAnimation
 import yesman.epicfight.api.animation.property.AnimationProperty.AttackAnimationProperty;
 import yesman.epicfight.api.animation.property.AnimationProperty.AttackPhaseProperty;
 import yesman.epicfight.api.animation.property.AnimationProperty.StaticAnimationProperty;
+import yesman.epicfight.api.animation.property.MoveCoordFunctions;
 import yesman.epicfight.api.animation.types.ActionAnimation;
 import yesman.epicfight.api.animation.types.AirSlashAnimation;
 import yesman.epicfight.api.animation.types.AttackAnimation;
@@ -122,6 +123,7 @@ public class OCCAnimations {
    public static StaticAnimation JUDGEMENT_CUT_A_TARGETED;
    public static StaticAnimation JUDGEMENT_CUT_A_EXTEND;
    public static StaticAnimation JUDGEMENT_CUT_A_EXTEND_TARGETED;
+   public static StaticAnimation JUDGEMENT_CUT_END;
    public static StaticAnimation DEVIL_TRIGGER;
 
    
@@ -308,6 +310,29 @@ public class OCCAnimations {
          TimeStampedEvent.create(0.3F, ReuseableEvents.YAMATO_IN, Side.SERVER), 
          TimeStampedEvent.create(0.3F, ReuseableEvents.STAMINA_RECOVERY_30, Side.SERVER), 
          TimeStampedEvent.create(0.3F, ReuseableEvents.KATANA_IN_WEAK, Side.SERVER));
+      JUDGEMENT_CUT_END = new AttackAnimation(0.05F, 0.0F, 0.6F, 2.9F, 5.4F, OCCColiders.NO_HITBOX, biped.rootJoint, "biped/skill/judgement_cut_end", biped)
+      .addProperty(AttackPhaseProperty.STUN_TYPE, StunType.KNOCKDOWN)
+      .addProperty(AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(1.5F))
+      .addProperty(AttackPhaseProperty.SWING_SOUND, OCCSounds.S_DIM_START.get())
+      .addProperty(AttackPhaseProperty.ARMOR_NEGATION_MODIFIER, ValueModifier.adder(10.0F))
+      .addProperty(AnimationProperty.ActionAnimationProperty.COORD_SET_TICK, MoveCoordFunctions.TRACE_LOC_TARGET)
+      .addProperty(AnimationProperty.ActionAnimationProperty.CANCELABLE_MOVE, false)
+      .addProperty(ActionAnimationProperty.STOP_MOVEMENT, true)
+      //.addProperty(ActionAnimationProperty.MOVE_TIME, TimePairList.create(0.0F, 5.5F))
+      //.addProperty(AttackAnimationProperty.FIXED_MOVE_DISTANCE, true)
+      .addProperty(StaticAnimationProperty.PLAY_SPEED_MODIFIER, ReuseableEvents.CONSTANTATION)
+      .addEvents(
+         StaticAnimationProperty.ON_BEGIN_EVENTS, AnimationEvent.create((entitypatch, animation, params) -> {
+            AAALevel.addParticle(entitypatch.getOriginal().level(), true, YamatoItem.JCE.clone());
+            System.out.println("Particle");
+         }, Side.CLIENT))
+      .addEvents(
+      TimeStampedEvent.create(0F, ReuseableEvents.YAMATO_IN, Side.SERVER),
+      TimeStampedEvent.create(2.4F, ReuseableEvents.YAMATO_OUT, Side.SERVER), 
+      TimeStampedEvent.create(5.4F, ReuseableEvents.YAMATO_IN, Side.SERVER),
+      TimeStampedEvent.create(5.4F, ReuseableEvents.STAMINA_RECOVERY_30, Side.SERVER), 
+      TimeStampedEvent.create(5.4F, ReuseableEvents.KATANA_IN_WEAK, Side.SERVER))
+      .addState(EntityState.MOVEMENT_LOCKED, true);;
       YAMATO_P1 = (new SpecialAttackAnimation(0.05F, 0.42F, 0.43F, 0.53F, 3.83F, OCCColiders.YAMATO_P, biped.toolR, "biped/combat/yamato_power1", biped))
       .addProperty(AttackPhaseProperty.STUN_TYPE, StunType.LONG)
       .addProperty(AttackPhaseProperty.SWING_SOUND, EpicFightSounds.WHOOSH_SHARP.get())
@@ -391,7 +416,7 @@ public class OCCAnimations {
          .addProperty(AttackAnimationProperty.FIXED_MOVE_DISTANCE, true)
          .addProperty(AttackAnimationProperty.FIXED_MOVE_DISTANCE, true)
          .addProperty(AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.35F)
-         .addProperty(AttackAnimationProperty.ATTACK_SPEED_FACTOR, 0.5F)
+         .addProperty(AttackAnimationProperty.ATTACK_SPEED_FACTOR, 0.4F)
          .addEvents(
             TimeStampedEvent.create(Float.MIN_VALUE, ReuseableEvents.YAMATO_IN, Side.SERVER), 
             TimeStampedEvent.create(Float.MIN_VALUE, ReuseableEvents.COMBO_BREAK, Side.SERVER), 

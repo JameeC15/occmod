@@ -147,6 +147,8 @@ dependencies {
     //implementation fg.deobf("curse.maven:ldlib-626676:5911980")
     implementation fg.deobf("curse.maven:aaa-particles-979809:5874448")
     implementation fg.deobf("curse.maven:architectury-api-419699:5137938")
+    
+    implementation fg.deobf("curse.maven:better-third-person-435044:4596768")
     //implementation fg.deobf("curse.maven:photon-871522:5760539")
     // Example mod dependency with JEI - using fg.deobf() ensures the dependency is remapped to your development mappings
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
