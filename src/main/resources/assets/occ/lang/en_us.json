@@ -3,5 +3,9 @@
     "item.occ.ds_yamato": "§1Dark Slayer Yamato",
     "item.occ.ds_yamato.tooltip": "The other half of the Legendary Dark Knight's Power. You have yet to unleash its full power",
     "skill.occ.slash_dimension": "Slash Dimension",
-    "skill.occ.slash_dimension.tooltip": "The ability to distort time and space to decimate your opponents,\nHowever, it seems to only be a fraction of its true potential"
+    "skill.occ.slash_dimension.tooltip": "The ability to distort time and space to decimate your opponents,\nHowever, it seems to only be a fraction of its true potential",
+
+    "skill.occ.devil_trigger": "Devil Trigger",
+
+    "epicfight.skill_slot.devil_trigger": "Devil Trigger"
 }

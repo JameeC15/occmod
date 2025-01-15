@@ -35,7 +35,15 @@ public class YamatoRenderer extends RenderItemBase {
       poseStack.popPose();
       
       ItemStack blade = ((LivingEntity)entitypatch.getOriginal()).getMainHandItem();
-      if (blade.hasTag() && blade.getTag().getInt("CustomModelData") > 0) {
+      if (blade.hasTag() && (blade.getTag().getInt("CustomModelData") == 2)) {
+         modelMatrix = new OpenMatrix4f(this.mainhandcorrectionMatrix);
+         modelMatrix.mulFront(poses[armature.toolR.getId()]);
+         poseStack.pushPose();
+         this.mulPoseStack(poseStack, modelMatrix);
+         Minecraft.getInstance().getItemRenderer().renderStatic(this.yamatoBlade, ItemDisplayContext.THIRD_PERSON_RIGHT_HAND, packedLight, OverlayTexture.NO_OVERLAY, poseStack, buffer, (Level)null, 0);
+         poseStack.popPose();
+
+      } else if (blade.hasTag() && (blade.getTag().getInt("CustomModelData") == 4)) {
          modelMatrix = new OpenMatrix4f(this.mainhandcorrectionMatrix);
          modelMatrix.mulFront(poses[armature.toolR.getId()]);
          poseStack.pushPose();

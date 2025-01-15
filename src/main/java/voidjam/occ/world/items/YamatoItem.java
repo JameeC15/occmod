@@ -9,9 +9,7 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableMultimap.Builder;
 import com.google.common.collect.Multimap;
 
-import mod.chloeprime.aaaparticles.api.common.ParticleEmitterInfo;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -34,10 +32,6 @@ public class YamatoItem extends WeaponItem {
 	private List<Component> tooltipExpand;
 	private float attackDamage;
 	private double attackSpeed;
-	
-	public static final ParticleEmitterInfo SLASHES = new ParticleEmitterInfo(new ResourceLocation(OCCMod.MODID,"sword")).scale(0.2F, 0.2F, 0.2F);
-	
-	public static final ParticleEmitterInfo JCE = new ParticleEmitterInfo(new ResourceLocation(OCCMod.MODID,"jce"));
 
 	public YamatoItem(Item.Properties build) {
 		super(EpicFightItemTier.UCHIGATANA, 0, -1.8F, build.defaultDurability(1666));

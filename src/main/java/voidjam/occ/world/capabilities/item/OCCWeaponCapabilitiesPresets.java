@@ -1,7 +1,7 @@
 package voidjam.occ.world.capabilities.item;
 
 import voidjam.occ.gameassets.OCCAnimations;
-import voidjam.occ.gameassets.OCCColiders;
+import voidjam.occ.gameassets.OCCColliders;
 import voidjam.occ.gameassets.OCCSkills;
 import voidjam.occ.main.OCCMod;
 import java.util.function.Function;
@@ -32,7 +32,7 @@ public class OCCWeaponCapabilitiesPresets {
 			return Styles.SHEATH;
 		 })/*.passiveSkill(OCCSkills.YAMATO_PASSIVE).comboCancel((style) -> {
 			return false;
-		 })*/.collider(OCCColiders.YAMATO).swingSound(EpicFightSounds.WHOOSH_BIG.get())
+		 })*/.collider(OCCColliders.YAMATO).swingSound(EpicFightSounds.WHOOSH_BIG.get())
 		 //.canBePlacedOffhand(false)
 		 .hitSound(EpicFightSounds.BLUNT_HIT.get())
 		 .hitParticle((HitParticleType)EpicFightParticles.HIT_BLADE.get())

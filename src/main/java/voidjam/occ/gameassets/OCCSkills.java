@@ -5,23 +5,21 @@ import java.util.Set;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import voidjam.occ.main.OCCMod;
+import voidjam.occ.skills.OCCSkillCategories;
+import voidjam.occ.skills.identity.DevilTrigger;
 //import voidjam.occ.skills.identity.DevilTrigger;
 //import voidjam.occ.skills.weaponpassive.YamatoPassive;
 import voidjam.occ.skills.weaponinnate.DarkSlayer;
 import yesman.epicfight.api.animation.property.AnimationProperty.AttackPhaseProperty;
-import yesman.epicfight.api.data.reloader.SkillManager;
 import yesman.epicfight.api.forgeevent.SkillBuildEvent;
 import yesman.epicfight.api.utils.math.ValueModifier;
-import yesman.epicfight.gameasset.EpicFightSounds;
 import yesman.epicfight.skill.Skill;
-import yesman.epicfight.skill.weaponinnate.ConditionalWeaponInnateSkill;
 import yesman.epicfight.skill.weaponinnate.WeaponInnateSkill;
 import yesman.epicfight.world.damagesource.EpicFightDamageType;
 import yesman.epicfight.world.damagesource.ExtraDamageInstance;
 import yesman.epicfight.world.damagesource.StunType;
 import yesman.epicfight.skill.Skill.ActivateType;
-import yesman.epicfight.skill.identity.RevelationSkill;
+import yesman.epicfight.skill.passive.PassiveSkill;
 
 @EventBusSubscriber(
    modid = "occ",
@@ -47,7 +45,9 @@ public class OCCSkills {
 					.addProperty(AttackPhaseProperty.SOURCE_TAG, Set.of(EpicFightDamageType.WEAPON_INNATE))
 					.addProperty(AttackPhaseProperty.STUN_TYPE, StunType.SHORT);
    JUDGEMENT_CUT = judgementCut;
-    
+
+   PassiveSkill devilTrigger = modRegistry.build("devil_trigger", DevilTrigger::new, DevilTrigger.createPassiveBuilder().setCategory(OCCSkillCategories.DEVIL_TRIGGER).setActivateType(ActivateType.DURATION_INFINITE));
+    DEVIL_TRIGGER = devilTrigger;
     //DEVIL_TRIGGER = modRegistry.build("devil_trigger", DevilTrigger::new, DevilTrigger.createDevilTriggerSkillBuilder());
    }
 }

@@ -132,7 +132,7 @@ public class BasicMultipleAttackAnimation extends AttackAnimation {
 					} while(!(hitten instanceof LivingEntity) && !(hitten instanceof PartEntity));
 				} while(!entity.hasLineOfSight(hitten));
 
-				HurtableEntityPatch<?> hitHurtableEntityPatch = (HurtableEntityPatch)EpicFightCapabilities.getEntityPatch(hitten, HurtableEntityPatch.class);
+				HurtableEntityPatch<?> hitHurtableEntityPatch = (HurtableEntityPatch<?>)EpicFightCapabilities.getEntityPatch(hitten, HurtableEntityPatch.class);
 				EpicFightDamageSource source = this.getEpicFightDamageSource(entitypatch, hitten, phase);
 				float anti_stunlock = 1.0F;
 				if (hitHurtableEntityPatch != null) {
@@ -157,7 +157,7 @@ public class BasicMultipleAttackAnimation extends AttackAnimation {
 						source = this.getEpicFightDamageSource(entitypatch, hitten, phase);
 					}
 
-					Iterator var18;
+					Iterator<?> var18;
 					String tag;
 					if (hitHurtableEntityPatch.isStunned()) {
 						var18 = hitten.getTags().iterator();
@@ -171,7 +171,7 @@ public class BasicMultipleAttackAnimation extends AttackAnimation {
 						}
 					} else {
 						boolean firstAttack = true;
-						Iterator var32 = hitten.getTags().iterator();
+						Iterator<?> var32 = hitten.getTags().iterator();
 
 						while(var32.hasNext()) {
 							String tag2 = (String)var32.next();
@@ -208,7 +208,7 @@ public class BasicMultipleAttackAnimation extends AttackAnimation {
 							tag = (String)var18.next();
 							if (tag.contains("anti_stunlock:")) {
 								hitten.removeTag(tag);
-								LivingEntityPatch<?> livingEntityPatch = (LivingEntityPatch)EpicFightCapabilities.getEntityPatch(hitten, LivingEntityPatch.class);
+								LivingEntityPatch<?> livingEntityPatch = (LivingEntityPatch<?>)EpicFightCapabilities.getEntityPatch(hitten, LivingEntityPatch.class);
 								if (livingEntityPatch != null) {
 									livingEntityPatch.setStunShield(0.0F);
 									livingEntityPatch.setMaxStunShield(0.0F);

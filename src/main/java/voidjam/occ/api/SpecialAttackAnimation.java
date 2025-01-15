@@ -1,7 +1,6 @@
 package voidjam.occ.api;
 import javax.annotation.Nullable;
 import net.minecraft.world.InteractionHand;
-import voidjam.occ.api.BasicAttackNoAntiStunAnimation;
 import yesman.epicfight.api.animation.Joint;
 import yesman.epicfight.api.animation.types.AttackAnimation;
 import yesman.epicfight.api.collider.Collider;
