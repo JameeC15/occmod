@@ -195,7 +195,9 @@ public class OCCAnimations {
          TimeStampedEvent.create(0F, ReuseableEvents.YAMATO_IN, Side.SERVER),
          TimeStampedEvent.create(1.0F, ReuseableEvents.YAMATO_OUT, Side.SERVER),
          TimeStampedEvent.create(1.08F, ReuseableEvents.KATANA_IN_WEAK, Side.SERVER),
-         TimeStampedEvent.create(1.14F, ReuseableEvents.YAMATO_IN, Side.SERVER));
+         TimeStampedEvent.create(1.14F, ReuseableEvents.YAMATO_IN, Side.SERVER),
+         TimeStampedEvent.create(Float.MIN_VALUE, ReuseableEvents.YAMATO_OUT, Side.SERVER), 
+         TimeStampedEvent.create(Float.MIN_VALUE, ReuseableEvents.COMBO_BREAK, Side.SERVER));
       JUDGEMENT_CUT_A_TARGETED = new BasicMultipleAttackAnimation(0.05F, 1.0F, 1.08F, 1.14F, OCCColliders.NO_HITBOX, biped.rootJoint, "biped/skill/yamato_jc_air_targeted", biped)
       .addProperty(AttackPhaseProperty.PARTICLE, EpicFightParticles.HIT_BLUNT)
       .addProperty(AttackPhaseProperty.SWING_SOUND, OCCSounds.S_DIM_START.get())
@@ -207,7 +209,33 @@ public class OCCAnimations {
          TimeStampedEvent.create(1F, ReuseableEvents.YAMATO_OUT, Side.SERVER),
          TimeStampedEvent.create(0F, ReuseableEvents.YAMATO_IN, Side.SERVER),
          TimeStampedEvent.create(1.08F, ReuseableEvents.KATANA_IN_WEAK, Side.SERVER),
-         TimeStampedEvent.create(1.14F, ReuseableEvents.YAMATO_IN, Side.SERVER));
+         TimeStampedEvent.create(1.14F, ReuseableEvents.YAMATO_IN, Side.SERVER), 
+         TimeStampedEvent.create(1.09F, (entitypatch, animation, params) -> {
+         if (entitypatch.getTarget() != null) {
+            double x = entitypatch.getTarget().getX();
+            double y = entitypatch.getTarget().getY() + 1;
+            double z = entitypatch.getTarget().getZ();
+            AAALevel.addParticle(entitypatch.getOriginal().level(),OCCEffekseerLoader.JUDGEMENT_CUT.clone().position(x,y,z));
+            }
+         }, Side.CLIENT),
+         TimeStampedEvent.create(1.09F, (entitypatch, animation, params) -> {
+            if (entitypatch.getTarget() != null) {
+               AABB box = AABB.ofSize(((LivingEntity)entitypatch.getTarget()).getPosition(1.0F), 3.0, 3.0, 3.0);
+               List<Entity> list = ((LivingEntity)entitypatch.getOriginal()).level().getEntities(entitypatch.getOriginal(), box);
+               for (Entity entity : list) {
+                  if (entity instanceof LivingEntity) {
+                     LivingEntity livingEntity = (LivingEntity) entity;
+                     EpicFightDamageSource epicFightDamageSource = entitypatch.getDamageSource(OCCAnimations.JUDGEMENT_CUT, InteractionHand.MAIN_HAND);
+                     epicFightDamageSource.setImpact(2.0F);
+                     epicFightDamageSource.setArmorNegation(0.3F);
+                     epicFightDamageSource.setStunType(StunType.LONG);
+   
+                     epicFightDamageSource.addRuntimeTag(EpicFightDamageType.WEAPON_INNATE);
+                     livingEntity.hurt(epicFightDamageSource, 12F);
+                  }
+               }
+            }
+         }, Side.SERVER));
       JUDGEMENT_CUT = new BasicMultipleAttackAnimation(0.05F, 0.86F, 0.96F, 0.97F, OCCColliders.JUDGEMENT_CUT, biped.rootJoint, "biped/skill/yamato_jc_ground", biped)
       .addProperty(AttackPhaseProperty.STUN_TYPE, StunType.HOLD)
       .addProperty(AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(1.5F))
@@ -237,9 +265,9 @@ public class OCCAnimations {
          TimeStampedEvent.create(0.86F, (entitypatch, animation, params) -> {
             if (entitypatch.getTarget() != null) {
                double x = entitypatch.getTarget().getX();
-               double y = entitypatch.getTarget().getY();
+               double y = entitypatch.getTarget().getY() + 1;
                double z = entitypatch.getTarget().getZ();
-               AAALevel.addParticle(entitypatch.getOriginal().level(),OCCEffekseerLoader.JCE.clone().position(x,y,z));
+               AAALevel.addParticle(entitypatch.getOriginal().level(),OCCEffekseerLoader.JUDGEMENT_CUT.clone().position(x,y,z));
             
             }
          }, Side.CLIENT),
