@@ -67,7 +67,7 @@ public class DarkSlayer extends WeaponInnateSkill {
          return OCCAnimations.JUDGEMENT_CUT;
       };
       this.setanimations[1] = () -> {
-         return OCCAnimations.UPPER_SLASH;
+         return OCCAnimations.JUDGEMENT_CUT;
       };
       this.setanimations[2] = () -> {
          return OCCAnimations.YAMATO_POWER_DASH;
@@ -76,7 +76,7 @@ public class DarkSlayer extends WeaponInnateSkill {
          return OCCAnimations.JUDGEMENT_CUT_A;
       };
       this.setanimations[4] = () -> {
-         return OCCAnimations.YAMATO_AERIAL_CLEAVE;
+         return OCCAnimations.JUDGEMENT_CUT_EXTEND_TARGETED;
       };
       this.setanimations[5] = () -> {
          return OCCAnimations.JUDGEMENT_CUT_TARGETED;
@@ -191,8 +191,8 @@ public class DarkSlayer extends WeaponInnateSkill {
 		this.comboAnimation.put(OCCAnimations.YAMATO_AUTO1, (AttackAnimation)OCCAnimations.YAMATO_P1);
 		this.comboAnimation.put(OCCAnimations.YAMATO_AUTO2, (AttackAnimation)OCCAnimations.YAMATO_P2);
 		this.comboAnimation.put(OCCAnimations.YAMATO_AUTO3, (AttackAnimation)OCCAnimations.YAMATO_P3);
-      this.comboAnimation.put(OCCAnimations.JUDGEMENT_CUT, (AttackAnimation)OCCAnimations.JUDGEMENT_CUT_EXTEND);
-      //this.comboAnimation.put(OCCAnimations.JUDGEMENT_CUT_TARGETED, (AttackAnimation)OCCAnimations.JUDGEMENT_CUT_EXTEND_TARGETED);
+        this.comboAnimation.put(OCCAnimations.JUDGEMENT_CUT, (AttackAnimation)OCCAnimations.JUDGEMENT_CUT_EXTEND);
+        //this.comboAnimation.put(OCCAnimations.JUDGEMENT_CUT_TARGETED, (AttackAnimation)OCCAnimations.JUDGEMENT_CUT_EXTEND_TARGETED);
 		
 		this.comboAnimation.values().forEach((animation) -> {
 			animation.phases[0].addProperties(((Map)this.properties.get(0)).entrySet());
@@ -205,5 +205,4 @@ public class DarkSlayer extends WeaponInnateSkill {
       super.updateContainer(container);
       container.setResource(10.0F);
    }
-
 }
