@@ -38,7 +38,7 @@ public class OCCWeaponCapabilitiesPresets {
 		 .hitParticle((HitParticleType)EpicFightParticles.HIT_BLADE.get())
 		 .newStyleCombo(Styles.SHEATH, new StaticAnimation[]{
 			OCCAnimations.YAMATO_AUTO1, OCCAnimations.YAMATO_AUTO2, OCCAnimations.YAMATO_AUTO3, OCCAnimations.YAMATO_AUTO4,
-			Animations.SWORD_DUAL_DASH, OCCAnimations.YAMATO_AIR_SLASH
+			OCCAnimations.UPPER_SLASH, OCCAnimations.YAMATO_AERIAL_CLEAVE
 		}).innateSkill(Styles.SHEATH, (itemstack) -> {
 			return OCCSkills.JUDGEMENT_CUT;
 		 })
