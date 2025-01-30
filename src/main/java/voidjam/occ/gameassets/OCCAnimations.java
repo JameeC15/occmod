@@ -12,6 +12,7 @@ import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import voidjam.occ.api.OCCMoveCoordFunctions;
 import yesman.epicfight.api.animation.property.AnimationEvent;
 import yesman.epicfight.api.animation.property.AnimationEvent.Side;
 import yesman.epicfight.api.animation.property.AnimationEvent.TimeStampedEvent;
@@ -21,12 +22,7 @@ import yesman.epicfight.api.animation.property.AnimationProperty.AttackAnimation
 import yesman.epicfight.api.animation.property.AnimationProperty.AttackPhaseProperty;
 import yesman.epicfight.api.animation.property.AnimationProperty.StaticAnimationProperty;
 import yesman.epicfight.api.animation.property.MoveCoordFunctions;
-import yesman.epicfight.api.animation.types.ActionAnimation;
-import yesman.epicfight.api.animation.types.AttackAnimation;
-import yesman.epicfight.api.animation.types.EntityState;
-import yesman.epicfight.api.animation.types.GuardAnimation;
-import yesman.epicfight.api.animation.types.MovementAnimation;
-import yesman.epicfight.api.animation.types.StaticAnimation;
+import yesman.epicfight.api.animation.types.*;
 import yesman.epicfight.api.collider.Collider;
 import yesman.epicfight.api.forgeevent.AnimationRegistryEvent;
 import yesman.epicfight.api.utils.HitEntityList.Priority;
@@ -99,22 +95,27 @@ public class OCCAnimations {
    private static void build() {
       HumanoidArmature biped = Armatures.BIPED;
       DEVIL_TRIGGER = new ActionAnimation(0.15F, "biped/skill/devil_trigger", biped)
-            .addProperty(ActionAnimationProperty.MOVE_VERTICAL, true)
-            ;
-      UPPER_SLASH = new BasicMultipleAttackAnimation(0.05F, 0.6F, 1.63F, 1.75F, OCCColliders.RISING_STAR, biped.rootJoint, "biped/combat/yamato_rising_star", biped)
-				.addProperty(AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(1.2F))
-				.addProperty(AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.setter(2.0F))
-				.addProperty(AttackPhaseProperty.STUN_TYPE, StunType.FALL)
-                .addProperty(ActionAnimationProperty.MOVE_VERTICAL, true)
-		        .addProperty(ActionAnimationProperty.NO_GRAVITY_TIME, TimePairList.create(0.3F, 1.9F))
-                .addProperty(StaticAnimationProperty.PLAY_SPEED_MODIFIER, ReuseableEvents.CONSTANTATION_FAST)
+            .addProperty(ActionAnimationProperty.MOVE_VERTICAL, true);
+
+      UPPER_SLASH = new BasicMultipleAttackAnimation(0.05F, "biped/combat/yamato_rising_star", biped,
+               new AttackAnimation.Phase(0.0F, 0.6F, 0.82F, 1F, 1F, biped.toolR, OCCColliders.YAMATO_US)
+                       .addProperty(AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(0.7F))
+                       .addProperty(AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.setter(2.0F))
+                       .addProperty(AttackPhaseProperty.STUN_TYPE, StunType.FALL),
+               new AttackAnimation.Phase(1F, 1.16F, 1.58F, 1.96F, 2F, InteractionHand.MAIN_HAND, biped.toolR, OCCColliders.YAMATO_US)
+                       .addProperty(AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(0.5F))
+                       .addProperty(AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.adder(4.2F))
+                       .addProperty(AttackPhaseProperty.STUN_TYPE, StunType.LONG))
+              .addProperty(ActionAnimationProperty.MOVE_VERTICAL, true)
+              .addProperty(ActionAnimationProperty.NO_GRAVITY_TIME, TimePairList.create(0.3F, 1.9F))
+              .addProperty(StaticAnimationProperty.PLAY_SPEED_MODIFIER, ReuseableEvents.CONSTANTATION_FAST)
 				//.addProperty(AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.4F)
             .addEvents(
             TimeStampedEvent.create(0.6F, ReuseableEvents.YAMATO_OUT, Side.SERVER),
             TimeStampedEvent.create(0.6F, ReuseableEvents.KATANA_OUT, Side.SERVER),
             TimeStampedEvent.create(1.93F, ReuseableEvents.KATANA_IN, Side.SERVER),
             TimeStampedEvent.create(1.93F, ReuseableEvents.YAMATO_IN, Side.SERVER)
-            );;
+            );
       YAMATO_IDLE = new StaticAnimation(true, "biped/living/yamato_idle", biped);
       YAMATO_WALK = new MovementAnimation(true, "biped/living/yamato_walk", biped);
       YAMATO_RUN = new MovementAnimation(true, "biped/living/yamato_run", biped);
@@ -124,7 +125,7 @@ public class OCCAnimations {
       //YAMATO_ACTIVE_GUARD_HIT2 = (new BasicMultipleAttackAnimation(0.02F, 0.2F, 0.19F, "biped/yamato/yamato_guard_parry2", biped)).addProperty(StaticAnimationProperty.PLAY_SPEED, 1.2F);
       YAMATO_AUTO1 = (new BasicMultipleAttackAnimation(0.05F, "biped/combat/yamato_auto1", biped, 
       new AttackAnimation.Phase[]{(
-         new AttackAnimation.Phase(0.0F, 0.27F, 0.271F, 0.33F, 0.56F, 0.56F, InteractionHand.MAIN_HAND, biped.toolL, OCCColliders.YAMATO_SHEATH))
+         new AttackAnimation.Phase(0.0F, 0.27F, 0.271F, 0.36F, 0.56F, 0.56F, InteractionHand.MAIN_HAND, biped.toolL, OCCColliders.YAMATO_SHEATH))
          .addProperty(AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(0.5F))
          .addProperty(AttackPhaseProperty.HIT_SOUND, EpicFightSounds.BLUNT_HIT.get())
          .addProperty(AttackPhaseProperty.PARTICLE, EpicFightParticles.HIT_BLUNT), 
@@ -466,7 +467,7 @@ public class OCCAnimations {
          TimeStampedEvent.create(1.45F, ReuseableEvents.YAMATO_IN, Side.SERVER),
          TimeStampedEvent.create(1.45F, ReuseableEvents.KATANA_IN, Side.SERVER)));
 
-      YAMATO_AERIAL_CLEAVE = new BasicAttackNoRotAnimation(0.05F, 0.6F, 1.2F, 1.2F, OCCColliders.AERIAL_CLEAVE, biped.rootJoint, "biped/skill/yamato_aerial_cleave", biped)
+      YAMATO_AERIAL_CLEAVE = new AirSlashAnimation(0.05F, 0.62F, 1.24F, 1.41F, OCCColliders.AERIAL_CLEAVE, biped.rootJoint, "biped/skill/yamato_aerial_cleave", biped)
          .addProperty(AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(1.0F))
          .addProperty(AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.multiplier(1.0F))
          .addProperty(AttackPhaseProperty.STUN_TYPE, StunType.FALL)
@@ -507,10 +508,10 @@ public class OCCAnimations {
          TimeStampedEvent.create(0.7F, (entitypatch, self, params) -> {
          ((LivingEntity)entitypatch.getOriginal()).resetFallDistance();
       }, Side.SERVER),
-      TimeStampedEvent.create(0.7F, ReuseableEvents.YAMATO_OUT, Side.SERVER),
-      TimeStampedEvent.create(0.7F, ReuseableEvents.KATANA_OUT, Side.SERVER),
-      TimeStampedEvent.create(1.15F, ReuseableEvents.YAMATO_IN, Side.SERVER),
-      TimeStampedEvent.create(1.15F, ReuseableEvents.KATANA_IN, Side.SERVER)});
+      TimeStampedEvent.create(0.66F, ReuseableEvents.YAMATO_OUT, Side.SERVER),
+      TimeStampedEvent.create(0.66F, ReuseableEvents.KATANA_OUT, Side.SERVER),
+      TimeStampedEvent.create(1.35F, ReuseableEvents.YAMATO_IN, Side.SERVER),
+      TimeStampedEvent.create(1.35F, ReuseableEvents.KATANA_IN, Side.SERVER)});
    }
    public static class ReuseableEvents {
       private static final AnimationEvent.AnimationEventConsumer KATANA_IN = (entitypatch, self, params) -> {
