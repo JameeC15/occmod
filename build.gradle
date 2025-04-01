@@ -141,17 +141,8 @@ dependencies {
     // The "userdev" classifier will be requested and setup by ForgeGradle.
     // If the group id is "net.minecraft" and the artifact id is one of ["client", "server", "joined"],
     // then special handling is done to allow a setup of a vanilla dependency without the use of an external repository.
-    minecraft 'net.minecraftforge:forge:1.20.1-47.3.5'
+    minecraft 'net.minecraftforge:forge:1.20.1-47.3.22'
     implementation fg.deobf("curse.maven:epic-fight-mod-405076:5922122")
-    implementation fg.deobf("curse.maven:epic-fight-indestructible-915201:5717023")
-    //implementation fg.deobf("curse.maven:aaa-particles-979809:5754184")
-    //implementation fg.deobf("curse.maven:ldlib-626676:5911980")
-    implementation fg.deobf("curse.maven:aaa-particles-979809:6035904")
-    implementation fg.deobf("curse.maven:architectury-api-419699:5137938")
-
-    implementation fg.deobf("curse.maven:better-third-person-435044:4596768")
-    implementation fg.deobf("curse.maven:epicfight-resurrection-1151542:6218258")
-    implementation fg.deobf("curse.maven:cosmetic-armor-reworked-237307:4600191")
     //implementation fg.deobf("curse.maven:photon-871522:5760539")
     // Example mod dependency with JEI - using fg.deobf() ensures the dependency is remapped to your development mappings
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime

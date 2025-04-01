@@ -3,6 +3,7 @@ package voidjam.occ.world.items;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.google.common.collect.ImmutableMultimap;
@@ -46,7 +47,7 @@ public class YamatoItem extends WeaponItem {
 	}
 	
 	@Override
-	public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) {
+	public boolean isValidRepairItem(@Nonnull ItemStack toRepair, @Nonnull ItemStack repair) {
 		return repair.getItem() == Items.NETHERITE_INGOT;
 	}
     
@@ -64,7 +65,7 @@ public class YamatoItem extends WeaponItem {
 	
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
+	public void appendHoverText(@Nonnull ItemStack stack, @Nullable Level worldIn, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flagIn) {
 		for (Component txtComp : tooltipExpand) {
 			tooltip.add(txtComp);
 		}

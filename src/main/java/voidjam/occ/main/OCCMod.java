@@ -2,6 +2,7 @@ package voidjam.occ.main;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -38,7 +39,7 @@ public class OCCMod
 
 		OCCItems.ITEMS.register(bus);
     	OCCSounds.SOUNDS.register(bus);
-    	OCCTabs.TABS.register(bus);
+		OCCTabs.TABS.register(bus);
     	OCCSkillDataKeys.DATA_KEYS.register(bus);
     	
     	MinecraftForge.EVENT_BUS.register(this);

@@ -14,4 +14,6 @@ public class OCCItems {
 	public static final RegistryObject<Item> REBELLION = ITEMS.register("rebellion", () -> new RebellionItem(new Item.Properties().rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> YAMATO_SHEATH = ITEMS.register("yamato_sheath", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
 	public static final RegistryObject<Item> YAMATO_BLADE = ITEMS.register("yamato_blade", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
+	public static final RegistryObject<Item> CHAIR = ITEMS.register("chair", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
+	public static final RegistryObject<Item> DRINK = ITEMS.register("drink", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
 }
