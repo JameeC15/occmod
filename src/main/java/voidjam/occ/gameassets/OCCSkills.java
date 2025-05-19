@@ -6,7 +6,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import voidjam.occ.skills.OCCSkillCategories;
-import voidjam.occ.skills.identity.DevilTrigger;
+import voidjam.occ.skills.deviltrigger.DevilTrigger;
 //import voidjam.occ.skills.identity.DevilTrigger;
 //import voidjam.occ.skills.weaponpassive.YamatoPassive;
 import voidjam.occ.skills.weaponinnate.DarkSlayer;

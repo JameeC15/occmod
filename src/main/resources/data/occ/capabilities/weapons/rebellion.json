@@ -1,0 +1,13 @@
+{
+  "attributes":
+  {
+    "common":
+    {
+      "armor_negation":12.5,
+      "max_strikes": 3,
+      "damage_bonus": 3,
+      "impact": 1.5
+    }
+  },
+  "type":"occ:rebellion"
+}

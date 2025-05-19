@@ -12,15 +12,17 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import yesman.epicfight.api.animation.LivingMotions;
 import yesman.epicfight.api.animation.types.StaticAnimation;
+import yesman.epicfight.api.collider.Collider;
 import yesman.epicfight.api.forgeevent.WeaponCapabilityPresetRegistryEvent;
 import yesman.epicfight.gameasset.Animations;
+import yesman.epicfight.gameasset.ColliderPreset;
+import yesman.epicfight.gameasset.EpicFightSkills;
 import yesman.epicfight.gameasset.EpicFightSounds;
 import yesman.epicfight.particle.EpicFightParticles;
 import yesman.epicfight.particle.HitParticleType;
 import yesman.epicfight.world.capabilities.item.CapabilityItem;
 import yesman.epicfight.world.capabilities.item.WeaponCapability;
 import yesman.epicfight.world.capabilities.item.CapabilityItem.Styles;
-import yesman.epicfight.world.capabilities.item.CapabilityItem.WeaponCategories;
 
 @EventBusSubscriber(
    modid = "occ",
@@ -28,12 +30,13 @@ import yesman.epicfight.world.capabilities.item.CapabilityItem.WeaponCategories;
 )
 public class OCCWeaponCapabilitiesPresets {
     public static final Function<Item, CapabilityItem.Builder> DARK_SLAYER = (item) -> {
-		CapabilityItem.Builder builder = WeaponCapability.builder().category(WeaponCategories.SWORD).styleProvider((entitypatch) -> {
-			return Styles.SHEATH;
-		 })/*.passiveSkill(OCCSkills.YAMATO_PASSIVE).comboCancel((style) -> {
-			return false;
-		 })*/.collider(OCCColliders.YAMATO).swingSound(EpicFightSounds.WHOOSH_BIG.get())
-		 //.canBePlacedOffhand(false)
+		CapabilityItem.Builder builder = WeaponCapability
+		.builder()
+		.category(OCCWeaponCategories.YAMATO)
+		.styleProvider((entitypatch) -> Styles.SHEATH )
+		 .collider(OCCColliders.YAMATO)
+		 .swingSound(EpicFightSounds.WHOOSH_BIG.get())
+		 .canBePlacedOffhand(true)
 		 .hitSound(EpicFightSounds.BLUNT_HIT.get())
 		 .hitParticle((HitParticleType)EpicFightParticles.HIT_BLADE.get())
 		 .newStyleCombo(Styles.SHEATH, new StaticAnimation[]{
@@ -42,10 +45,30 @@ public class OCCWeaponCapabilitiesPresets {
 		}).innateSkill(Styles.SHEATH, (itemstack) -> {
 			return OCCSkills.JUDGEMENT_CUT;
 		 })
-		 //.livingMotionModifier(Styles.TWO_HAND, LivingMotions.BLOCK, InfernalAnimations.INFERNAL_GUARD)
-		 .livingMotionModifier(Styles.SHEATH, LivingMotions.IDLE, OCCAnimations.YAMATO_IDLE);
+		 .livingMotionModifier(Styles.SHEATH, LivingMotions.IDLE, OCCAnimations.YAMATO_IDLE)
+		 .livingMotionModifier(Styles.SHEATH, LivingMotions.BLOCK, OCCAnimations.YAMATO_GUARD);
 		 return builder;
 	  };
+
+	public static final Function<Item, CapabilityItem.Builder> REBELLION = (item) -> {
+		CapabilityItem.Builder builder = WeaponCapability
+				.builder()
+				.category(OCCWeaponCategories.YAMATO)
+				.styleProvider((entitypatch) -> Styles.TWO_HAND)
+				.collider(ColliderPreset.LONGSWORD)
+				.swingSound(EpicFightSounds.WHOOSH.get())
+				.canBePlacedOffhand(true)
+				.hitSound(EpicFightSounds.BLADE_HIT.get())
+				.hitParticle((HitParticleType)EpicFightParticles.HIT_BLADE.get())
+				.newStyleCombo(Styles.TWO_HAND, new StaticAnimation[]{
+						Animations.LONGSWORD_AUTO1, Animations.LONGSWORD_AUTO2, Animations.LONGSWORD_AUTO3,
+						Animations.LONGSWORD_DASH, Animations.LONGSWORD_AIR_SLASH
+				}).innateSkill(Styles.TWO_HAND, (itemstack) -> {
+					return EpicFightSkills.LIECHTENAUER;
+				})
+				.livingMotionModifier(Styles.TWO_HAND, LivingMotions.IDLE, OCCAnimations.REBELLION_IDLE);
+		return builder;
+	};
 
        public OCCWeaponCapabilitiesPresets() {
        }
@@ -53,5 +76,6 @@ public class OCCWeaponCapabilitiesPresets {
        @SubscribeEvent
        public static void register(WeaponCapabilityPresetRegistryEvent event) {
         event.getTypeEntry().put(new ResourceLocation(OCCMod.MODID,"yamato_ds"), DARK_SLAYER);
+		   event.getTypeEntry().put(new ResourceLocation(OCCMod.MODID,"rebellion"), REBELLION);
      }
 }

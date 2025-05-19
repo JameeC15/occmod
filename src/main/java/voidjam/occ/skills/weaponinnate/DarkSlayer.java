@@ -11,22 +11,17 @@ import java.util.UUID;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.player.Input;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
 import voidjam.occ.gameassets.OCCAnimations;
 import voidjam.occ.skills.OCCSkillDataKeys;
-import yesman.epicfight.api.animation.AttackAnimationProvider;
 import yesman.epicfight.api.animation.LivingMotions;
 import yesman.epicfight.api.animation.StaticAnimationProvider;
 import yesman.epicfight.api.animation.types.AttackAnimation;
@@ -35,30 +30,21 @@ import yesman.epicfight.api.animation.types.EntityState;
 import yesman.epicfight.api.animation.types.StaticAnimation;
 import yesman.epicfight.client.events.engine.ControllEngine;
 import yesman.epicfight.client.world.capabilites.entitypatch.player.LocalPlayerPatch;
-import yesman.epicfight.gameasset.Animations;
-import yesman.epicfight.gameasset.EpicFightSkills;
 import yesman.epicfight.network.client.CPExecuteSkill;
-import yesman.epicfight.skill.Skill;
 import yesman.epicfight.skill.SkillContainer;
-import yesman.epicfight.skill.SkillDataKey;
-import yesman.epicfight.skill.SkillDataManager;
-import yesman.epicfight.skill.SkillSlots;
-import yesman.epicfight.skill.weaponinnate.ConditionalWeaponInnateSkill;
 import yesman.epicfight.skill.weaponinnate.WeaponInnateSkill;
 import yesman.epicfight.world.capabilities.entitypatch.player.PlayerPatch;
 import yesman.epicfight.world.capabilities.entitypatch.player.ServerPlayerPatch;
 import yesman.epicfight.world.capabilities.item.CapabilityItem;
 import yesman.epicfight.world.effect.EpicFightMobEffects;
 import yesman.epicfight.world.entity.eventlistener.PlayerEventListener.EventType;
-import yesman.epicfight.world.entity.eventlistener.SkillConsumeEvent;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class DarkSlayer extends WeaponInnateSkill {
    private static final UUID EVENT_UUID = UUID.fromString("63c38d4f-cc97-4339-bedf-d9bba36ba29f");
 
-   private final StaticAnimationProvider[] setanimations = new StaticAnimationProvider[9];
+   private final StaticAnimationProvider[] setanimations = new StaticAnimationProvider[8];
    private final Map<StaticAnimation, AttackAnimation> comboAnimation = Maps.newHashMap();
 
    public DarkSlayer(WeaponInnateSkill.Builder builder) {
@@ -67,7 +53,7 @@ public class DarkSlayer extends WeaponInnateSkill {
          return OCCAnimations.JUDGEMENT_CUT;
       };
       this.setanimations[1] = () -> {
-         return OCCAnimations.JUDGEMENT_CUT;
+         return OCCAnimations.UPPER_SLASH;
       };
       this.setanimations[2] = () -> {
          return OCCAnimations.YAMATO_POWER_DASH;
@@ -76,28 +62,26 @@ public class DarkSlayer extends WeaponInnateSkill {
          return OCCAnimations.JUDGEMENT_CUT_A;
       };
       this.setanimations[4] = () -> {
-         return OCCAnimations.JUDGEMENT_CUT_EXTEND_TARGETED;
+         return OCCAnimations.YAMATO_AERIAL_CLEAVE;
       };
       this.setanimations[5] = () -> {
          return OCCAnimations.JUDGEMENT_CUT_TARGETED;
       };
       this.setanimations[6] = () -> {
-         return OCCAnimations.JUDGEMENT_CUT_EXTEND;
+         return OCCAnimations.JUDGEMENT_CUT_END;
       };
       this.setanimations[7] = () -> {
-         return OCCAnimations.JUDGEMENT_CUT_EXTEND_TARGETED;
-      };
-      this.setanimations[8] = () -> {
-         return OCCAnimations.JUDGEMENT_CUT_END;
+         return OCCAnimations.JUDGEMENT_CUT_A_TARGETED;
       };
    }
 
+   @Override
    public void onInitiate(SkillContainer container) {
-		super.onInitiate(container);
-	}
+   }
 
-	public void onRemoved(SkillContainer container) {
-	}
+	@Override
+   public void onRemoved(SkillContainer container) {
+   }
 
    @OnlyIn(Dist.CLIENT)
    public FriendlyByteBuf gatherArguments(LocalPlayerPatch executer, ControllEngine controllEngine) {
@@ -142,21 +126,28 @@ public class DarkSlayer extends WeaponInnateSkill {
       
       if (!player.onGround() && !player.isInWater() && (player.level().isEmptyBlock(player.blockPosition().below()) || player.yo - (double)player.blockPosition().getY() > 0.2)) {
          if (i == 0 || i == 2) {
-            executer.playAnimationSynchronized(this.setanimations[3].get(), 0.0F);
+            if (executer.getTarget() != null && executer.getTarget().isAlive()) {
+               executer.playAnimationSynchronized(this.setanimations[7].get(), 0.0F);
+            } else {
+               executer.playAnimationSynchronized(this.setanimations[3].get(), 0.0F);
+            }
          } else {
             executer.playAnimationSynchronized(this.setanimations[4].get(), 0.0F);
          }
-        
       } else if (player.onGround() || player.isInWater()) {
          if (this.comboAnimation.containsKey(animation)) {
             executer.playAnimationSynchronized(this.comboAnimation.get(animation), 0.0F);
             super.executeOnServer(executer, args);
          } else {
-            if (i ==0) {
-               if (executer.getTarget() != null && executer.getTarget().isAlive()) {
-                  executer.playAnimationSynchronized(this.setanimations[5].get(), 0.0F);
+            if (i == 0) {
+               if (executer.getOriginal().isUsingItem()) {
+                  executer.playAnimationSynchronized(this.setanimations[6].get(), 0.0F);
                } else {
-                  executer.playAnimationSynchronized(this.setanimations[i].get(), 0.0F);
+                  if (executer.getTarget() != null && executer.getTarget().isAlive()) {
+                     executer.playAnimationSynchronized(this.setanimations[5].get(), 0.0F);
+                  } else {
+                     executer.playAnimationSynchronized(this.setanimations[i].get(), 0.0F);
+                  }
                }
             } else {
                executer.playAnimationSynchronized(this.setanimations[i].get(), 0.0F);
@@ -188,11 +179,8 @@ public class DarkSlayer extends WeaponInnateSkill {
 
 	public WeaponInnateSkill registerPropertiesToAnimation() {
 		this.comboAnimation.clear();
-		this.comboAnimation.put(OCCAnimations.YAMATO_AUTO1, (AttackAnimation)OCCAnimations.YAMATO_P1);
-		this.comboAnimation.put(OCCAnimations.YAMATO_AUTO2, (AttackAnimation)OCCAnimations.YAMATO_P2);
-		this.comboAnimation.put(OCCAnimations.YAMATO_AUTO3, (AttackAnimation)OCCAnimations.YAMATO_P3);
-        this.comboAnimation.put(OCCAnimations.JUDGEMENT_CUT, (AttackAnimation)OCCAnimations.JUDGEMENT_CUT_EXTEND);
-        //this.comboAnimation.put(OCCAnimations.JUDGEMENT_CUT_TARGETED, (AttackAnimation)OCCAnimations.JUDGEMENT_CUT_EXTEND_TARGETED);
+		this.comboAnimation.put(OCCAnimations.YAMATO_AUTO2, (AttackAnimation)OCCAnimations.YAMATO_COMBO_B);
+		this.comboAnimation.put(OCCAnimations.YAMATO_AUTO3, (AttackAnimation)OCCAnimations.YAMATO_COMBO_C);
 		
 		this.comboAnimation.values().forEach((animation) -> {
 			animation.phases[0].addProperties(((Map)this.properties.get(0)).entrySet());
@@ -205,4 +193,5 @@ public class DarkSlayer extends WeaponInnateSkill {
       super.updateContainer(container);
       container.setResource(10.0F);
    }
+
 }

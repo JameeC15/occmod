@@ -16,9 +16,4 @@ import yesman.epicfight.main.EpicFightMod;
 @Mod.EventBusSubscriber(value = Dist.CLIENT, bus=Mod.EventBusSubscriber.Bus.MOD)
 public class OCCKeyMappings {
 	public static final KeyMapping DEVIL_TRIGGER = new CombatKeyMapping("key.occ.devil_trigger", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_G, "key." + EpicFightMod.MODID + ".combat");
-	
-	@SubscribeEvent
-	public static void registerKeys(RegisterKeyMappingsEvent event) {
-		event.register(DEVIL_TRIGGER);
-	}
 }

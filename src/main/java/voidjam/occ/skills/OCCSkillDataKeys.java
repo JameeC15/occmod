@@ -3,7 +3,7 @@ package voidjam.occ.skills;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
-import voidjam.occ.skills.identity.DevilTrigger;
+import voidjam.occ.skills.deviltrigger.DevilTrigger;
 import voidjam.occ.skills.weaponinnate.DarkSlayer;
 import yesman.epicfight.skill.SkillDataKey;
 

@@ -1,9 +1,10 @@
-package voidjam.occ.skills.identity;
+package voidjam.occ.skills.deviltrigger;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import java.util.UUID;
 
+import net.minecraft.network.FriendlyByteBuf;
 import org.joml.Math;
 
 import net.minecraft.client.gui.GuiGraphics;
@@ -35,20 +36,6 @@ public class DevilTrigger extends PassiveSkill {
    
    @Override
    public void onInitiate(SkillContainer container) {
-      container.getExecuter().getEventListener().addEventListener(EventType.SERVER_ITEM_USE_EVENT, EVENT_UUID, (event) -> {
-         if (!container.getDataManager().getDataValue(OCCSkillDataKeys.ACTIVE.get()) && ((ServerPlayer)((ServerPlayerPatch)event.getPlayerPatch()).getOriginal()).isShiftKeyDown() && (Integer)container.getDataManager().getDataValue(OCCSkillDataKeys.DT_STACKS.get()) > 0 && container.getExecuter().getStamina() == container.getExecuter().getMaxStamina()) {
-            container.getExecuter().setStamina(container.getExecuter().getStamina() / 2.0F);
-            container.getDataManager().setDataSync(OCCSkillDataKeys.ACTIVE.get(), true, (ServerPlayer)container.getExecuter().getOriginal());
-            ((ServerPlayerPatch)event.getPlayerPatch()).playAnimationSynchronized(OCCAnimations.DEVIL_TRIGGER, 0.0F);
-            ((ServerPlayer)((ServerPlayerPatch)event.getPlayerPatch()).getOriginal()).addEffect(new MobEffectInstance(EpicFightMobEffects.STUN_IMMUNITY.get(), 3, 1, false, false));
-            
-
-         } else if (container.getDataManager().getDataValue(OCCSkillDataKeys.ACTIVE.get())) {
-            container.getDataManager().setDataSync(OCCSkillDataKeys.ACTIVE.get(), false, (ServerPlayer)container.getExecuter().getOriginal());
-         }
-
-      });
-
       container.getExecuter().getEventListener().addEventListener(EventType.DEALT_DAMAGE_EVENT_DAMAGE, EVENT_UUID, (event) -> {
         if ((container.getDataManager().getDataValue(OCCSkillDataKeys.DT_STACKS.get()) + (int)Math.round(event.getAttackDamage() * 1.25)) <= 400) {
             container.getDataManager().setDataSync(OCCSkillDataKeys.DT_STACKS.get(), (Integer)container.getDataManager().getDataValue(OCCSkillDataKeys.DT_STACKS.get()) + (int)Math.round(event.getAttackDamage() * 1.25), (ServerPlayer)container.getExecuter().getOriginal());
@@ -57,6 +44,20 @@ public class DevilTrigger extends PassiveSkill {
         }
         
       });
+   }
+
+   @Override
+   public void executeOnServer(ServerPlayerPatch executer, FriendlyByteBuf args) {
+      if (!executer.getSkill(this).getDataManager().getDataValue(OCCSkillDataKeys.ACTIVE.get()) && (Integer)executer.getSkill(this).getDataManager().getDataValue(OCCSkillDataKeys.DT_STACKS.get()) > 0 && executer.getSkill(this).getExecuter().getStamina() == executer.getSkill(this).getExecuter().getMaxStamina()) {
+         executer.getSkill(this).getExecuter().setStamina(executer.getSkill(this).getExecuter().getStamina() / 2.0F);
+         executer.getSkill(this).getDataManager().setDataSync(OCCSkillDataKeys.ACTIVE.get(), true, (ServerPlayer)executer.getSkill(this).getExecuter().getOriginal());
+         executer.playAnimationSynchronized(OCCAnimations.DEVIL_TRIGGER, 0.0F);
+         executer.getOriginal().addEffect(new MobEffectInstance(EpicFightMobEffects.STUN_IMMUNITY.get(), 3, 1, false, false));
+
+
+      } else if (executer.getSkill(this).getDataManager().getDataValue(OCCSkillDataKeys.ACTIVE.get())) {
+         executer.getSkill(this).getDataManager().setDataSync(OCCSkillDataKeys.ACTIVE.get(), false, (ServerPlayer)executer.getSkill(this).getExecuter().getOriginal());
+      }
    }
 
    @Override
