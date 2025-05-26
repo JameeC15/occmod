@@ -15,13 +15,11 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import voidjam.occ.gameassets.OCCAnimations;
-import voidjam.occ.skills.OCCSkillDataKeys;
+import voidjam.occ.gameassets.YamatoAnimations;
 import yesman.epicfight.api.animation.LivingMotions;
 import yesman.epicfight.api.animation.StaticAnimationProvider;
 import yesman.epicfight.api.animation.types.AttackAnimation;
@@ -36,8 +34,6 @@ import yesman.epicfight.skill.weaponinnate.WeaponInnateSkill;
 import yesman.epicfight.world.capabilities.entitypatch.player.PlayerPatch;
 import yesman.epicfight.world.capabilities.entitypatch.player.ServerPlayerPatch;
 import yesman.epicfight.world.capabilities.item.CapabilityItem;
-import yesman.epicfight.world.effect.EpicFightMobEffects;
-import yesman.epicfight.world.entity.eventlistener.PlayerEventListener.EventType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -50,28 +46,28 @@ public class DarkSlayer extends WeaponInnateSkill {
    public DarkSlayer(WeaponInnateSkill.Builder builder) {
       super(builder);
       this.setanimations[0] = () -> {
-         return OCCAnimations.JUDGEMENT_CUT;
+         return YamatoAnimations.JUDGEMENT_CUT;
       };
       this.setanimations[1] = () -> {
-         return OCCAnimations.UPPER_SLASH;
+         return YamatoAnimations.UPPER_SLASH;
       };
       this.setanimations[2] = () -> {
-         return OCCAnimations.YAMATO_POWER_DASH;
+         return YamatoAnimations.YAMATO_POWER_DASH;
       };
       this.setanimations[3] = () -> {
-         return OCCAnimations.JUDGEMENT_CUT_A;
+         return YamatoAnimations.JUDGEMENT_CUT_A;
       };
       this.setanimations[4] = () -> {
-         return OCCAnimations.YAMATO_AERIAL_CLEAVE;
+         return YamatoAnimations.YAMATO_AERIAL_CLEAVE;
       };
       this.setanimations[5] = () -> {
-         return OCCAnimations.JUDGEMENT_CUT_TARGETED;
+         return YamatoAnimations.JUDGEMENT_CUT_TARGETED;
       };
       this.setanimations[6] = () -> {
-         return OCCAnimations.JUDGEMENT_CUT_END;
+         return YamatoAnimations.JUDGEMENT_CUT_END;
       };
       this.setanimations[7] = () -> {
-         return OCCAnimations.JUDGEMENT_CUT_A_TARGETED;
+         return YamatoAnimations.JUDGEMENT_CUT_A_TARGETED;
       };
    }
 
@@ -179,8 +175,8 @@ public class DarkSlayer extends WeaponInnateSkill {
 
 	public WeaponInnateSkill registerPropertiesToAnimation() {
 		this.comboAnimation.clear();
-		this.comboAnimation.put(OCCAnimations.YAMATO_AUTO2, (AttackAnimation)OCCAnimations.YAMATO_COMBO_B);
-		this.comboAnimation.put(OCCAnimations.YAMATO_AUTO3, (AttackAnimation)OCCAnimations.YAMATO_COMBO_C);
+		this.comboAnimation.put(YamatoAnimations.YAMATO_AUTO2, (AttackAnimation) YamatoAnimations.YAMATO_COMBO_B);
+		this.comboAnimation.put(YamatoAnimations.YAMATO_AUTO3, (AttackAnimation) YamatoAnimations.YAMATO_COMBO_C);
 		
 		this.comboAnimation.values().forEach((animation) -> {
 			animation.phases[0].addProperties(((Map)this.properties.get(0)).entrySet());

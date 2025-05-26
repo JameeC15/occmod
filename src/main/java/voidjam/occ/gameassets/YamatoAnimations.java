@@ -4,12 +4,9 @@ import java.util.List;
 import java.util.Set;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.util.RandomSource;
 import mod.chloeprime.aaaparticles.api.common.AAALevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
@@ -53,13 +50,8 @@ import voidjam.occ.api.BasicMultipleAttackAnimation;
 import voidjam.occ.api.SpecialAttackAnimation;
 import voidjam.occ.api.YamatoAttackAnimation;
 import voidjam.occ.client.particle.effekseer.OCCEffekseerLoader;
-//import voidjam.occ.skills.weaponpassive.YamatoPassive;
 
-public class OCCAnimations {
-   //REBELLION
-   public static StaticAnimation REBELLION_IDLE;
-
-   //YAMATO
+public class YamatoAnimations {
    public static StaticAnimation YAMATO_IDLE;
    public static StaticAnimation YAMATO_WALK;
    public static StaticAnimation YAMATO_RUN;
@@ -88,19 +80,13 @@ public class OCCAnimations {
 
    public static StaticAnimation JUDGEMENT_CUT_END;
 
-
-   public static StaticAnimation DEVIL_TRIGGER;
-
-   public OCCAnimations() {
+   public YamatoAnimations() {
    }
    public static void registerAnimations(AnimationRegistryEvent event) {
-      event.getRegistryMap().put("occ", OCCAnimations::build);
+      event.getRegistryMap().put("occ", YamatoAnimations::build);
    }
    private static void build() {
       HumanoidArmature biped = Armatures.BIPED;
-      DEVIL_TRIGGER = new ActionAnimation(0.15F, "biped/skill/devil_trigger", biped)
-            .addProperty(ActionAnimationProperty.MOVE_VERTICAL, true)
-            ;
       UPPER_SLASH = new BasicMultipleAttackAnimation(0.05F, 0.6F, 0.835F, 1.75F, OCCColliders.RISING_STAR, biped.rootJoint, "biped/combat/yamato/yamato_upper_slash", biped)
 				.addProperty(AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(1.2F))
 				.addProperty(AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.setter(2.0F))
@@ -115,13 +101,11 @@ public class OCCAnimations {
             TimeStampedEvent.create(1.1F, ReuseableEvents.YAMATO_IN, Side.SERVER)
             );
       YAMATO_IDLE = new StaticAnimation(true, "biped/living/yamato/yamato_idle", biped);
-      REBELLION_IDLE = new StaticAnimation(true, "biped/living/rebellion/rebellion_idle", biped);
-      YAMATO_WALK = new MovementAnimation(true, "biped/living/yamato/yamato_walk", biped);
+     YAMATO_WALK = new MovementAnimation(true, "biped/living/yamato/yamato_walk", biped);
       YAMATO_RUN = new MovementAnimation(true, "biped/living/yamato/yamato_run", biped);
       YAMATO_GUARD = new StaticAnimation(0.075f, true, "biped/skill/yamato/guard_yamato", biped);
       YAMATO_GUARD_HIT = new GuardAnimation(0.15F, "biped/skill/yamato/guard_yamato_hit", biped);
-      //YAMATO_ACTIVE_GUARD_HIT = (new BasicMultipleAttackAnimation(0.02F, 0.2F, 0.19F, "biped/yamato/yamato_guard_parry", biped)).addProperty(StaticAnimationProperty.PLAY_SPEED, 1.2F);
-      //YAMATO_ACTIVE_GUARD_HIT2 = (new BasicMultipleAttackAnimation(0.02F, 0.2F, 0.19F, "biped/yamato/yamato_guard_parry2", biped)).addProperty(StaticAnimationProperty.PLAY_SPEED, 1.2F);
+
       /////////////////
       //
       //
@@ -130,6 +114,7 @@ public class OCCAnimations {
       //
       //
       /////////////////
+
       YAMATO_AUTO1 = (new YamatoAttackAnimation(0.05F, 0.0F, 1.41F, 0.75F, 1.3F, 0.27F, 1.41F, 0.0F, 0.0F, "biped/combat/yamato/yamato_auto1", biped,
       new AttackAnimation.Phase(0.0F, 0.05F, 0.15F, 0.25F, 0.45F, 0.45F, InteractionHand.MAIN_HAND, biped.toolL, OCCColliders.YAMATO_SHEATH)
          .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(0.5F))
@@ -187,6 +172,7 @@ public class OCCAnimations {
          AnimationEvent.TimeStampedEvent.create(2.5F, ReuseableEvents.YAMATO_IN, AnimationEvent.Side.SERVER),
          AnimationEvent.TimeStampedEvent.create(2.5F, Animations.ReusableSources.PLAY_SOUND, AnimationEvent.Side.SERVER).params(OCCSounds.SWORD_IN.get()))
       .addState(EntityState.MOVEMENT_LOCKED, true);
+
       /////////////////
       //
       //
@@ -365,6 +351,7 @@ public class OCCAnimations {
 			}, Side.CLIENT),
          TimeStampedEvent.create(0.2F, ReuseableEvents.ENTITY_SCAN, Side.SERVER))
       .addState(EntityState.MOVEMENT_LOCKED, true);
+
       JUDGEMENT_CUT_END = new AttackAnimation(0.05F, 2.4F, 5.4F, 5.6F, 5.9F, OCCColliders.NO_HITBOX, biped.rootJoint, "biped/skill/yamato/judgement_cut_end", biped)
       .addProperty(AttackPhaseProperty.STUN_TYPE, StunType.KNOCKDOWN)
       .addProperty(AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(1.5F))
@@ -419,6 +406,7 @@ public class OCCAnimations {
                Entity entity = entitypatch.getOriginal();
                entity.level().addParticle(EpicFightParticles.ENTITY_AFTER_IMAGE.get(), entity.getX(), entity.getY(), entity.getZ(), Double.longBitsToDouble(entity.getId()), 0, 0);
             }, Side.CLIENT));
+
       YAMATO_AIR_SLASH = (new BasicMultipleAttackAnimation(0.05F, "biped/combat/yamato/yamato_aerial_a", biped,
       new AttackAnimation.Phase[]{(
          new AttackAnimation.Phase(0.00F, 0.4F, 0.55F, 0.6F, 0.6F, biped.toolR, null))
@@ -526,7 +514,7 @@ public class OCCAnimations {
             for (Entity entity : list) {
                if (entity instanceof LivingEntity) {
                   LivingEntity livingEntity = (LivingEntity) entity;
-                  EpicFightDamageSource epicFightDamageSource = entitypatch.getDamageSource(OCCAnimations.JUDGEMENT_CUT, InteractionHand.MAIN_HAND);
+                  EpicFightDamageSource epicFightDamageSource = entitypatch.getDamageSource(YamatoAnimations.JUDGEMENT_CUT, InteractionHand.MAIN_HAND);
                   epicFightDamageSource.setImpact(2.0F);
                   epicFightDamageSource.setArmorNegation(0.3F);
                   epicFightDamageSource.setStunType(StunType.LONG);
@@ -557,7 +545,7 @@ public class OCCAnimations {
                LivingEntity livingEntity = (LivingEntity) entity;
                livingEntity.setInvulnerable(false);
 
-               EpicFightDamageSource epicFightDamageSource = entitypatch.getDamageSource(OCCAnimations.JUDGEMENT_CUT_END, InteractionHand.MAIN_HAND);
+               EpicFightDamageSource epicFightDamageSource = entitypatch.getDamageSource(YamatoAnimations.JUDGEMENT_CUT_END, InteractionHand.MAIN_HAND);
                epicFightDamageSource.setImpact(2.0F);
                epicFightDamageSource.setArmorNegation(0.3F);
                epicFightDamageSource.setStunType(StunType.NEUTRALIZE);
@@ -591,7 +579,6 @@ public class OCCAnimations {
       };
       public static final AnimationProperty.PlaybackSpeedModifier CONSTANTATION = (self, entitypatch, speed, prevElapsedTime, elapsedTime) -> 1.35F;
       public static final AnimationProperty.PlaybackSpeedModifier CONSTANTATION_FAST = (self, entitypatch, speed, prevElapsedTime, elapsedTime) -> 1.75F;
-      public static final AnimationProperty.PlaybackSpeedModifier CONSTANTATION_SLOW = (self, entitypatch, speed, prevElapsedTime, elapsedTime) -> 0.85F;
       public static final AnimationProperty.PlaybackSpeedModifier CONSTANT_ONE = (self, entitypatch, speed, prevElapsedTime, elapsedTime) -> 1.0F;
    }
 

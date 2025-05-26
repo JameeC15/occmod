@@ -17,7 +17,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import voidjam.occ.gameassets.OCCAnimations;
+import voidjam.occ.gameassets.MiscAnimations;
+import voidjam.occ.gameassets.YamatoAnimations;
 import voidjam.occ.skills.OCCSkillDataKeys;
 import yesman.epicfight.client.gui.BattleModeGui;
 import yesman.epicfight.skill.Skill;
@@ -51,7 +52,7 @@ public class DevilTrigger extends PassiveSkill {
       if (!executer.getSkill(this).getDataManager().getDataValue(OCCSkillDataKeys.ACTIVE.get()) && (Integer)executer.getSkill(this).getDataManager().getDataValue(OCCSkillDataKeys.DT_STACKS.get()) > 0 && executer.getSkill(this).getExecuter().getStamina() == executer.getSkill(this).getExecuter().getMaxStamina()) {
          executer.getSkill(this).getExecuter().setStamina(executer.getSkill(this).getExecuter().getStamina() / 2.0F);
          executer.getSkill(this).getDataManager().setDataSync(OCCSkillDataKeys.ACTIVE.get(), true, (ServerPlayer)executer.getSkill(this).getExecuter().getOriginal());
-         executer.playAnimationSynchronized(OCCAnimations.DEVIL_TRIGGER, 0.0F);
+         executer.playAnimationSynchronized(MiscAnimations.DEVIL_TRIGGER, 0.0F);
          executer.getOriginal().addEffect(new MobEffectInstance(EpicFightMobEffects.STUN_IMMUNITY.get(), 3, 1, false, false));
 
 

@@ -1,6 +1,7 @@
 package voidjam.occ.world.capabilities.item;
 
-import voidjam.occ.gameassets.OCCAnimations;
+import voidjam.occ.gameassets.RebellionAnimations;
+import voidjam.occ.gameassets.YamatoAnimations;
 import voidjam.occ.gameassets.OCCColliders;
 import voidjam.occ.gameassets.OCCSkills;
 import voidjam.occ.main.OCCMod;
@@ -12,7 +13,6 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import yesman.epicfight.api.animation.LivingMotions;
 import yesman.epicfight.api.animation.types.StaticAnimation;
-import yesman.epicfight.api.collider.Collider;
 import yesman.epicfight.api.forgeevent.WeaponCapabilityPresetRegistryEvent;
 import yesman.epicfight.gameasset.Animations;
 import yesman.epicfight.gameasset.ColliderPreset;
@@ -40,13 +40,13 @@ public class OCCWeaponCapabilitiesPresets {
 		 .hitSound(EpicFightSounds.BLUNT_HIT.get())
 		 .hitParticle((HitParticleType)EpicFightParticles.HIT_BLADE.get())
 		 .newStyleCombo(Styles.SHEATH, new StaticAnimation[]{
-			OCCAnimations.YAMATO_AUTO1, OCCAnimations.YAMATO_AUTO2, OCCAnimations.YAMATO_AUTO3, OCCAnimations.YAMATO_AUTO4,
-			OCCAnimations.UPPER_SLASH, OCCAnimations.YAMATO_AERIAL_CLEAVE
+			YamatoAnimations.YAMATO_AUTO1, YamatoAnimations.YAMATO_AUTO2, YamatoAnimations.YAMATO_AUTO3, YamatoAnimations.YAMATO_AUTO4,
+			YamatoAnimations.UPPER_SLASH, YamatoAnimations.YAMATO_AERIAL_CLEAVE
 		}).innateSkill(Styles.SHEATH, (itemstack) -> {
 			return OCCSkills.JUDGEMENT_CUT;
 		 })
-		 .livingMotionModifier(Styles.SHEATH, LivingMotions.IDLE, OCCAnimations.YAMATO_IDLE)
-		 .livingMotionModifier(Styles.SHEATH, LivingMotions.BLOCK, OCCAnimations.YAMATO_GUARD);
+		 .livingMotionModifier(Styles.SHEATH, LivingMotions.IDLE, YamatoAnimations.YAMATO_IDLE)
+		 .livingMotionModifier(Styles.SHEATH, LivingMotions.BLOCK, YamatoAnimations.YAMATO_GUARD);
 		 return builder;
 	  };
 
@@ -61,12 +61,12 @@ public class OCCWeaponCapabilitiesPresets {
 				.hitSound(EpicFightSounds.BLADE_HIT.get())
 				.hitParticle((HitParticleType)EpicFightParticles.HIT_BLADE.get())
 				.newStyleCombo(Styles.TWO_HAND, new StaticAnimation[]{
-						Animations.LONGSWORD_AUTO1, Animations.LONGSWORD_AUTO2, Animations.LONGSWORD_AUTO3,
+						RebellionAnimations.REBELLION_AUTO1, RebellionAnimations.REBELLION_AUTO2, RebellionAnimations.REBELLION_AUTO3,
 						Animations.LONGSWORD_DASH, Animations.LONGSWORD_AIR_SLASH
 				}).innateSkill(Styles.TWO_HAND, (itemstack) -> {
 					return EpicFightSkills.LIECHTENAUER;
 				})
-				.livingMotionModifier(Styles.TWO_HAND, LivingMotions.IDLE, OCCAnimations.REBELLION_IDLE);
+				.livingMotionModifier(Styles.TWO_HAND, LivingMotions.IDLE, RebellionAnimations.REBELLION_IDLE);
 		return builder;
 	};
 
