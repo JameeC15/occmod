@@ -1,18 +1,20 @@
 package voidjam.occ.gameassets;
 
-import java.util.List;
-import java.util.Set;
-
-import net.minecraft.core.BlockPos;
 import mod.chloeprime.aaaparticles.api.common.AAALevel;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import voidjam.occ.api.BasicAttackNoRotAnimation;
+import voidjam.occ.api.BasicMultipleAttackAnimation;
+import voidjam.occ.api.SpecialAttackAnimation;
+import voidjam.occ.api.YamatoAttackAnimation;
+import voidjam.occ.client.particle.effekseer.OCCEffekseerLoader;
 import yesman.epicfight.api.animation.property.AnimationEvent;
 import yesman.epicfight.api.animation.property.AnimationEvent.Side;
 import yesman.epicfight.api.animation.property.AnimationEvent.TimeStampedEvent;
@@ -22,14 +24,8 @@ import yesman.epicfight.api.animation.property.AnimationProperty.AttackAnimation
 import yesman.epicfight.api.animation.property.AnimationProperty.AttackPhaseProperty;
 import yesman.epicfight.api.animation.property.AnimationProperty.StaticAnimationProperty;
 import yesman.epicfight.api.animation.property.MoveCoordFunctions;
-import yesman.epicfight.api.animation.types.ActionAnimation;
-import yesman.epicfight.api.animation.types.AttackAnimation;
-import yesman.epicfight.api.animation.types.EntityState;
-import yesman.epicfight.api.animation.types.GuardAnimation;
-import yesman.epicfight.api.animation.types.MovementAnimation;
-import yesman.epicfight.api.animation.types.StaticAnimation;
+import yesman.epicfight.api.animation.types.*;
 import yesman.epicfight.api.collider.Collider;
-import yesman.epicfight.api.forgeevent.AnimationRegistryEvent;
 import yesman.epicfight.api.utils.HitEntityList.Priority;
 import yesman.epicfight.api.utils.TimePairList;
 import yesman.epicfight.api.utils.math.OpenMatrix4f;
@@ -45,11 +41,9 @@ import yesman.epicfight.world.damagesource.EpicFightDamageSource;
 import yesman.epicfight.world.damagesource.EpicFightDamageType;
 import yesman.epicfight.world.damagesource.ExtraDamageInstance;
 import yesman.epicfight.world.damagesource.StunType;
-import voidjam.occ.api.BasicAttackNoRotAnimation;
-import voidjam.occ.api.BasicMultipleAttackAnimation;
-import voidjam.occ.api.SpecialAttackAnimation;
-import voidjam.occ.api.YamatoAttackAnimation;
-import voidjam.occ.client.particle.effekseer.OCCEffekseerLoader;
+
+import java.util.List;
+import java.util.Set;
 
 public class YamatoAnimations {
    public static StaticAnimation YAMATO_IDLE;

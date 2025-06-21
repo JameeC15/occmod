@@ -1,26 +1,23 @@
 package voidjam.occ.main;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import voidjam.occ.gameassets.MiscAnimations;
-import voidjam.occ.gameassets.RebellionAnimations;
+import voidjam.occ.gameassets.OCCSounds;
+import voidjam.occ.skills.OCCSkillCategories;
+import voidjam.occ.skills.OCCSkillDataKeys;
 import voidjam.occ.skills.OCCSkillSlots;
+import voidjam.occ.skills.guard.OCCGuard;
 import voidjam.occ.world.items.OCCItems;
 import voidjam.occ.world.items.OCCTabs;
 import yesman.epicfight.skill.SkillCategory;
 import yesman.epicfight.skill.SkillSlot;
-import voidjam.occ.gameassets.YamatoAnimations;
-import voidjam.occ.gameassets.OCCSounds;
-import voidjam.occ.skills.OCCSkillCategories;
-import voidjam.occ.skills.OCCSkillDataKeys;
-import voidjam.occ.skills.guard.OCCGuard;
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod("occ")
 public class OCCMod

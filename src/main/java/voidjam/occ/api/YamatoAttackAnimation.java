@@ -1,7 +1,5 @@
 package voidjam.occ.api;
 
-import java.util.Locale;
-
 import net.minecraft.world.phys.Vec3;
 import yesman.epicfight.api.animation.Pose;
 import yesman.epicfight.api.animation.property.AnimationProperty.ActionAnimationProperty;
@@ -10,6 +8,8 @@ import yesman.epicfight.api.animation.types.*;
 import yesman.epicfight.api.model.Armature;
 import yesman.epicfight.world.capabilities.entitypatch.LivingEntityPatch;
 import yesman.epicfight.world.capabilities.entitypatch.player.PlayerPatch;
+
+import java.util.Locale;
 
 public class YamatoAttackAnimation extends AttackAnimation {
 

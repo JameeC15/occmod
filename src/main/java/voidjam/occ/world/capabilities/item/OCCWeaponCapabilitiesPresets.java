@@ -1,16 +1,15 @@
 package voidjam.occ.world.capabilities.item;
 
-import voidjam.occ.gameassets.RebellionAnimations;
-import voidjam.occ.gameassets.YamatoAnimations;
-import voidjam.occ.gameassets.OCCColliders;
-import voidjam.occ.gameassets.OCCSkills;
-import voidjam.occ.main.OCCMod;
-import java.util.function.Function;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import voidjam.occ.gameassets.OCCColliders;
+import voidjam.occ.gameassets.OCCSkills;
+import voidjam.occ.gameassets.RebellionAnimations;
+import voidjam.occ.gameassets.YamatoAnimations;
+import voidjam.occ.main.OCCMod;
 import yesman.epicfight.api.animation.LivingMotions;
 import yesman.epicfight.api.animation.types.StaticAnimation;
 import yesman.epicfight.api.forgeevent.WeaponCapabilityPresetRegistryEvent;
@@ -21,8 +20,10 @@ import yesman.epicfight.gameasset.EpicFightSounds;
 import yesman.epicfight.particle.EpicFightParticles;
 import yesman.epicfight.particle.HitParticleType;
 import yesman.epicfight.world.capabilities.item.CapabilityItem;
-import yesman.epicfight.world.capabilities.item.WeaponCapability;
 import yesman.epicfight.world.capabilities.item.CapabilityItem.Styles;
+import yesman.epicfight.world.capabilities.item.WeaponCapability;
+
+import java.util.function.Function;
 
 @EventBusSubscriber(
    modid = "occ",

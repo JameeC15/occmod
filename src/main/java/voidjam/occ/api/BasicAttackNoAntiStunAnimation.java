@@ -1,6 +1,5 @@
 package voidjam.occ.api;
 
-import javax.annotation.Nullable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import yesman.epicfight.api.animation.Joint;
@@ -8,6 +7,8 @@ import yesman.epicfight.api.animation.types.AttackAnimation;
 import yesman.epicfight.api.collider.Collider;
 import yesman.epicfight.api.model.Armature;
 import yesman.epicfight.world.damagesource.EpicFightDamageSource;
+
+import javax.annotation.Nullable;
 
 public class BasicAttackNoAntiStunAnimation extends BasicMultipleAttackAnimation {
     public BasicAttackNoAntiStunAnimation(float convertTime, float antic, float contact, float recovery, @Nullable Collider collider, Joint colliderJoint, String path, Armature armature) {

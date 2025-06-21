@@ -1,7 +1,6 @@
 package voidjam.occ.world.capabilities.item;
 
 import net.minecraft.world.item.Item;
-
 import yesman.epicfight.world.capabilities.item.CapabilityItem;
 import yesman.epicfight.world.capabilities.item.WeaponCategory;
 

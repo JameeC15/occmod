@@ -1,25 +1,23 @@
 package voidjam.occ.gameassets;
 
-import java.util.Set;
-
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import voidjam.occ.skills.OCCSkillCategories;
 import voidjam.occ.skills.deviltrigger.DevilTrigger;
-//import voidjam.occ.skills.identity.DevilTrigger;
-//import voidjam.occ.skills.weaponpassive.YamatoPassive;
 import voidjam.occ.skills.weaponinnate.DarkSlayer;
 import yesman.epicfight.api.animation.property.AnimationProperty.AttackPhaseProperty;
 import yesman.epicfight.api.forgeevent.SkillBuildEvent;
 import yesman.epicfight.api.utils.math.ValueModifier;
 import yesman.epicfight.skill.Skill;
+import yesman.epicfight.skill.Skill.ActivateType;
+import yesman.epicfight.skill.passive.PassiveSkill;
 import yesman.epicfight.skill.weaponinnate.WeaponInnateSkill;
 import yesman.epicfight.world.damagesource.EpicFightDamageType;
 import yesman.epicfight.world.damagesource.ExtraDamageInstance;
 import yesman.epicfight.world.damagesource.StunType;
-import yesman.epicfight.skill.Skill.ActivateType;
-import yesman.epicfight.skill.passive.PassiveSkill;
+
+import java.util.Set;
 
 @EventBusSubscriber(
    modid = "occ",

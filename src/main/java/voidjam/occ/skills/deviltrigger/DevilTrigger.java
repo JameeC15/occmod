@@ -2,13 +2,9 @@ package voidjam.occ.skills.deviltrigger;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import java.util.UUID;
-
-import net.minecraft.network.FriendlyByteBuf;
-import org.joml.Math;
-
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.particles.DustColorTransitionOptions;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -17,8 +13,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.joml.Math;
 import voidjam.occ.gameassets.MiscAnimations;
-import voidjam.occ.gameassets.YamatoAnimations;
 import voidjam.occ.skills.OCCSkillDataKeys;
 import yesman.epicfight.client.gui.BattleModeGui;
 import yesman.epicfight.skill.Skill;
@@ -27,6 +23,8 @@ import yesman.epicfight.skill.passive.PassiveSkill;
 import yesman.epicfight.world.capabilities.entitypatch.player.ServerPlayerPatch;
 import yesman.epicfight.world.effect.EpicFightMobEffects;
 import yesman.epicfight.world.entity.eventlistener.PlayerEventListener.EventType;
+
+import java.util.UUID;
 
 public class DevilTrigger extends PassiveSkill {
    private static final UUID EVENT_UUID = UUID.fromString("79190c82-eff0-4232-bb21-24205d416637");

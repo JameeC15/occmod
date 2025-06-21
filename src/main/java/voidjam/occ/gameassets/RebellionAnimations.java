@@ -1,15 +1,13 @@
 package voidjam.occ.gameassets;
 
-import mod.chloeprime.aaaparticles.api.common.AAALevel;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import voidjam.occ.api.YamatoAttackAnimation;
-import voidjam.occ.client.particle.effekseer.OCCEffekseerLoader;
 import yesman.epicfight.api.animation.property.AnimationProperty;
 import yesman.epicfight.api.animation.property.AnimationProperty.AttackAnimationProperty;
 import yesman.epicfight.api.animation.property.AnimationProperty.StaticAnimationProperty;
-import yesman.epicfight.api.animation.types.*;
-import yesman.epicfight.api.forgeevent.AnimationRegistryEvent;
+import yesman.epicfight.api.animation.types.AttackAnimation;
+import yesman.epicfight.api.animation.types.EntityState;
+import yesman.epicfight.api.animation.types.StaticAnimation;
 import yesman.epicfight.gameasset.Armatures;
 import yesman.epicfight.gameasset.ColliderPreset;
 import yesman.epicfight.model.armature.HumanoidArmature;
