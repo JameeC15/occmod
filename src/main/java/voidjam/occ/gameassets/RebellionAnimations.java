@@ -25,10 +25,7 @@ public class RebellionAnimations {
    public RebellionAnimations() {
    }
 
-   public static void registerAnimations(AnimationRegistryEvent event) {
-      event.getRegistryMap().put("occ", RebellionAnimations::build);
-   }
-   private static void build() {
+   public static void build() {
       HumanoidArmature biped = Armatures.BIPED;
       REBELLION_IDLE = new StaticAnimation(true, "biped/living/rebellion/rebellion_idle", biped);
       REBELLION_AUTO1 = (new YamatoAttackAnimation(0.15F, 0.0F, 1.2F, 0.37F, 0.42F, 0.3F, 0.65F, 0.0F, 0.0F, "biped/combat/rebellion/rebellion_auto1", biped,

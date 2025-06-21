@@ -82,10 +82,8 @@ public class YamatoAnimations {
 
    public YamatoAnimations() {
    }
-   public static void registerAnimations(AnimationRegistryEvent event) {
-      event.getRegistryMap().put("occ", YamatoAnimations::build);
-   }
-   private static void build() {
+
+   public static void build() {
       HumanoidArmature biped = Armatures.BIPED;
       UPPER_SLASH = new BasicMultipleAttackAnimation(0.05F, 0.6F, 0.835F, 1.75F, OCCColliders.RISING_STAR, biped.rootJoint, "biped/combat/yamato/yamato_upper_slash", biped)
 				.addProperty(AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(1.2F))
@@ -101,7 +99,7 @@ public class YamatoAnimations {
             TimeStampedEvent.create(1.1F, ReuseableEvents.YAMATO_IN, Side.SERVER)
             );
       YAMATO_IDLE = new StaticAnimation(true, "biped/living/yamato/yamato_idle", biped);
-     YAMATO_WALK = new MovementAnimation(true, "biped/living/yamato/yamato_walk", biped);
+      YAMATO_WALK = new MovementAnimation(true, "biped/living/yamato/yamato_walk", biped);
       YAMATO_RUN = new MovementAnimation(true, "biped/living/yamato/yamato_run", biped);
       YAMATO_GUARD = new StaticAnimation(0.075f, true, "biped/skill/yamato/guard_yamato", biped);
       YAMATO_GUARD_HIT = new GuardAnimation(0.15F, "biped/skill/yamato/guard_yamato_hit", biped);
@@ -313,12 +311,9 @@ public class YamatoAnimations {
       .addProperty(AttackPhaseProperty.SWING_SOUND, OCCSounds.S_DIM_START.get())
       .addProperty(AttackPhaseProperty.ARMOR_NEGATION_MODIFIER, ValueModifier.adder(10.0F))
       .addProperty(StaticAnimationProperty.FIXED_HEAD_ROTATION, true)
-      .addProperty(StaticAnimationProperty.PLAY_SPEED_MODIFIER, ReuseableEvents.CONSTANT_ONE)
+      .addProperty(StaticAnimationProperty.PLAY_SPEED_MODIFIER, ReuseableEvents.CONSTANTATION_FAST)
       .addEvents(
          TimeStampedEvent.create(0F, ReuseableEvents.YAMATO_IN, Side.SERVER),
-         TimeStampedEvent.create(0.13F, ReuseableEvents.YAMATO_OUT, Side.SERVER), 
-         TimeStampedEvent.create(0.3F, ReuseableEvents.YAMATO_IN, Side.SERVER), 
-         TimeStampedEvent.create(0.3F, ReuseableEvents.STAMINA_RECOVERY_30, Side.SERVER), 
          TimeStampedEvent.create(0.3F, ReuseableEvents.KATANA_IN_WEAK, Side.SERVER),
          TimeStampedEvent.create(0.10F, (entitypatch, animation, params) -> {
 				Entity entity = entitypatch.getOriginal();
@@ -330,12 +325,9 @@ public class YamatoAnimations {
       .addProperty(AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(1.5F))
       .addProperty(AttackPhaseProperty.SWING_SOUND, OCCSounds.S_DIM_START.get())
       .addProperty(AttackPhaseProperty.ARMOR_NEGATION_MODIFIER, ValueModifier.adder(10.0F))
-      .addProperty(StaticAnimationProperty.PLAY_SPEED_MODIFIER, ReuseableEvents.CONSTANT_ONE)
+      .addProperty(StaticAnimationProperty.PLAY_SPEED_MODIFIER, ReuseableEvents.CONSTANTATION_FAST)
       .addEvents(
          TimeStampedEvent.create(0F, ReuseableEvents.YAMATO_IN, Side.SERVER),
-         TimeStampedEvent.create(0.13F, ReuseableEvents.YAMATO_OUT, Side.SERVER), 
-         TimeStampedEvent.create(0.3F, ReuseableEvents.YAMATO_IN, Side.SERVER), 
-         TimeStampedEvent.create(0.3F, ReuseableEvents.STAMINA_RECOVERY_30, Side.SERVER), 
          TimeStampedEvent.create(0.3F, ReuseableEvents.KATANA_IN_WEAK, Side.SERVER),
          TimeStampedEvent.create(0.2F, (entitypatch, animation, params) -> {
             if (entitypatch.getTarget() != null) {

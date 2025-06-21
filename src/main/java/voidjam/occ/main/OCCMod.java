@@ -37,8 +37,6 @@ public class OCCMod
     public OCCMod() {
     	instance = this;
     	IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-		bus.addListener(YamatoAnimations::registerAnimations);
-		bus.addListener(RebellionAnimations::registerAnimations);
 		bus.addListener(MiscAnimations::registerAnimations);
     	
 		SkillCategory.ENUM_MANAGER.registerEnumCls(OCCMod.MODID, OCCSkillCategories.class);
